@@ -1,0 +1,57 @@
+unit DVList.Frame.DeviceRow;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Objects, Objects;
+
+type
+
+  TClickEvent = procedure(Fields : Devices) of Object;
+
+  TframeDevice = class(TFrame)
+    Rectangle1: TRectangle;
+    txtDeviceName: TText;
+    txtDeviceAddress: TText;
+    Line1: TLine;
+  private
+    FDeviceID: Integer;
+    procedure SetDeviceID(const Value: Integer);
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure ColorCard(_ThePosi : Boolean);
+    property DeviceID : Integer read FDeviceID write SetDeviceID;
+  end;
+
+implementation
+
+{$R *.fmx}
+
+{ TframeDevice }
+
+procedure TframeDevice.ColorCard(_ThePosi: Boolean);
+begin
+ if _ThePosi then begin
+   txtDeviceName.TextSettings.FontColor := TAlphaColorRec.White;
+   txtDeviceAddress.TextSettings.FontColor := TAlphaColorRec.White;
+   Line1.Stroke.Color:= TAlphaColorRec.White;
+   Rectangle1.Fill.Color := $FF111E3E;
+ end
+ else
+ begin
+   txtDeviceName.TextSettings.FontColor := TAlphaColorRec.Black;
+   txtDeviceAddress.TextSettings.FontColor := TAlphaColorRec.Black;
+   Line1.Stroke.Color := TAlphaColorRec.Black;
+   Rectangle1.Fill.Color := $FF53A1F4;
+ end;
+end;
+
+procedure TframeDevice.SetDeviceID(const Value: Integer);
+begin
+  FDeviceID := Value;
+end;
+
+end.

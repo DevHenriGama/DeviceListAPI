@@ -1,0 +1,230 @@
+unit DeviceList.DataObjects.Instructions;
+
+interface
+
+uses
+  Objects,
+  System.Generics.Collections, DeviceList.DataObject.Interfaces,
+  DeviceList.Business.Interfaces, DeviceList.DataObject.DataModule,
+  DeviceList.Business.SingletonInformation, DeviceList.Business.Device;
+
+type
+  TDeviceInstruction = class
+  private
+    FDevice: IDevice;
+    _data: TdmData;
+    Info : TSingletonInformation;
+  public
+    constructor Create(_device: TDevice);
+    destructor Destroy; override;
+    function DevicesCount: Integer;
+    function GetRequestCountToday  :Integer;
+    function LogCount: Integer;
+    function GetContents: TList<Devices>;
+    procedure AddLogRequest(_Type: String);
+    function GetLogsRequests: TList<RequestValues>;
+    function GetDaysRequestCount : TDaysRequestCount;
+    procedure Insert;
+    procedure Delete;
+    procedure Update;
+  end;
+
+implementation
+
+uses
+  System.SysUtils, FMX.Dialogs;
+
+{ TDeviceInstruction }
+
+constructor TDeviceInstruction.Create(_device: TDevice);
+begin
+  FDevice := _device;
+  _data := TdmData.Create(nil);
+  Info := TSingletonInformation.GetInstance;
+end;
+
+procedure TDeviceInstruction.Delete;
+begin
+  with _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM DEVICES WHERE ID = :id');
+    ParamByName('id').AsInteger := FDevice.GetID;
+    ExecSQL;
+  end;
+  Info.Notify;
+end;
+
+destructor TDeviceInstruction.Destroy;
+begin
+  _data.Free;
+  inherited;
+end;
+
+function TDeviceInstruction.DevicesCount: Integer;
+begin
+  with _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM DEVICES');
+    Open;
+    Result := RecordCount;
+  end;
+end;
+
+function TDeviceInstruction.GetContents: TList<Devices>;
+var
+  Device: Devices;
+  DeviceList: TList<Devices>;
+  I: Integer;
+begin
+
+  DeviceList := TList<Devices>.Create;
+  try
+    with _data.fdMainQuery do
+    begin
+      Close;
+      SQL.Clear;
+      SQL.Add('SELECT * FROM DEVICES');
+      Open;
+
+      if RecordCount > 0 then
+      begin
+        for I := 0 to RecordCount - 1 do
+        begin
+          Device.DeviceName := FieldByName('NAME').Text;
+          Device.DeviceAddress := FieldByName('ADDRESS').Text;
+          Device.DeviceID := FieldByName('ID').AsInteger;
+          DeviceList.Add(Device);
+          Next;
+        end;
+      end;
+    end;
+  finally
+
+  end;
+  Result := DeviceList;
+
+end;
+
+function TDeviceInstruction.GetDaysRequestCount: TDaysRequestCount;
+var DaysCountArr : TDaysRequestCount;
+  I: Integer;
+begin
+   for I := 1 to 7 do begin
+    with _data.fdMainQuery do begin
+      Close;
+      SQL.Clear;
+      SQL.Add('SELECT TIME FROM RequestList WHERE TIME  = :tm');
+      ParamByName('tm').AsString := DateToStr(Now - I);
+      Open;
+      DaysCountArr[I] := RecordCount;
+    end;
+   end;
+
+   Result := DaysCountArr;
+end;
+
+function TDeviceInstruction.GetLogsRequests: TList<RequestValues>;
+var
+  RequestFields: RequestValues;
+  ListOfLogRequest: TList<RequestValues>;
+  I: Integer;
+begin
+
+  ListOfLogRequest := TList<RequestValues>.Create;
+
+  WITH _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM RequestList');
+    Open;
+
+    if RecordCount > 0 then
+    begin
+      for I := 0 to RecordCount - 1 do
+      begin
+        with RequestFields do
+        begin
+          RequestType := FieldByName('REQUEST').Text;
+          DateRegister := FieldByName('TIME').Text;
+          ListOfLogRequest.Add(RequestFields);
+          Next;
+        end;
+      end;
+
+    end;
+  end;
+  Result := ListOfLogRequest;
+end;
+
+function TDeviceInstruction.GetRequestCountToday: Integer;
+begin
+ with _data.fdMainQuery do begin
+   Close;
+   SQL.Clear;
+   SQL.Add('SELECT TIME FROM RequestList WHERE TIME = :tm');
+   ParamByName('tm').AsString := FormatDateTime('dd/mm/yyyy',Now);
+   Open;
+   Result := RecordCount;
+ end;
+end;
+
+procedure TDeviceInstruction.Insert;
+begin
+  with _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO DEVICES (NAME ,ADDRESS) VALUES (:name, :addr)');
+    ParamByName('name').AsString := FDevice.GetDeviceName;
+    ParamByName('addr').AsString := FDevice.GetDeviceAddress;
+    ExecSQL;
+  end;
+  Info.Notify;
+end;
+
+function TDeviceInstruction.LogCount: Integer;
+begin
+  with _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM RequestList');
+    Open;
+    Result := RecordCount;
+  end;
+end;
+
+procedure TDeviceInstruction.AddLogRequest(_Type: String);
+begin
+  with _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO RequestList (REQUEST,TIME) VALUES (:req, :tm) ');
+    ParamByName('req').AsString := _Type;
+    ParamByName('tm').AsString := FormatDateTime('dd/mm/yyyy', Now);
+    ExecSQL;
+  end;
+end;
+
+procedure TDeviceInstruction.Update;
+begin
+  with _data.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE DEVICES SET NAME = :name , ADDRESS = :addr WHERE ID = :id');
+    ParamByName('id').AsInteger := FDevice.GetID;
+    ParamByName('name').AsString := FDevice.GetDeviceName;
+    ParamByName('addr').AsString := FDevice.GetDeviceAddress;
+    ExecSQL;
+  end;
+  Info.Notify;
+end;
+
+end.

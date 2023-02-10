@@ -1,0 +1,78 @@
+unit DVList.Frame.Settings;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Objects, FMX.Controls.Presentation, FMX.Edit, FMX.Ani, FMX.Layouts,
+  DeviceList.Business.Settings, DeviceList.Business.Interfaces;
+
+type
+  TFrameSettings = class(TFrame)
+    ltBackGround: TLayout;
+    ContentInfo: TRectangle;
+    ShowDeviceInfo: TFloatAnimation;
+    Close: TFloatAnimation;
+    Image2: TImage;
+    Layout1: TLayout;
+    Rectangle2: TRectangle;
+    btnSave: TText;
+    baseEdit: TRectangle;
+    edtPortAPI: TEdit;
+    Layout2: TLayout;
+    Image1: TImage;
+    TransparentSide: TRectangle;
+    Label1: TLabel;
+    Label2: TLabel;
+    swStartonSys: TSwitch;
+    swAutoStart: TSwitch;
+    Label3: TLabel;
+    swHabilteAPI: TSwitch;
+    procedure CloseSFinish(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure FramePaint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+  private
+    { Private declarations }
+    Settings : ISettings;
+    procedure Load;
+    procedure Save;
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.fmx}
+
+procedure TFrameSettings.CloseSFinish(Sender: TObject);
+begin
+Self.Free;
+end;
+
+procedure TFrameSettings.FramePaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+Settings := TSettings.Create;
+end;
+
+procedure TFrameSettings.Image1Click(Sender: TObject);
+begin
+Close.Start;
+end;
+
+procedure TFrameSettings.Load;
+begin
+ with Settings do begin
+   swStartonSys.IsChecked := GetStarOnSys;
+   swAutoStart.IsChecked := GetAutoStar;
+   edtPortAPI.Text := IntToStr(GetPort);
+ end;
+end;
+
+procedure TFrameSettings.Save;
+begin
+
+end;
+
+end.

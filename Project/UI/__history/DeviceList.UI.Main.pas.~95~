@@ -1,0 +1,272 @@
+unit DeviceList.UI.Main;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uDWAbout,
+  uRESTDWBase, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation,
+  DVList.Frame.RequestRow,
+  FMX.StdCtrls, DeviceList.Business.Interfaces, DVList.Frame.GraphicBar,
+  Objects, DVList.Frame.DeviceManager, DVList.Frame.Settings,
+  DeviceList.Business.Device, DeviceList.Business.SingletonInformation;
+
+type
+  TfrmMain = class(TForm, IObserver)
+    ltBackground: TLayout;
+    contentGraphic: TRectangle;
+    ContentInfo: TRectangle;
+    infoDiv: TLine;
+    lblRequest: TLabel;
+    lblInfomation: TLabel;
+    vetRequests: TVertScrollBox;
+    Layout1: TLayout;
+    lblTotalRequest: TLabel;
+    lblTotalRequestValue: TLabel;
+    lblTotalDevices: TLabel;
+    lblTotalDevicesValue: TLabel;
+    lblRequestToday: TLabel;
+    lblRequestTodayValue: TLabel;
+    Rectangle1: TRectangle;
+    lblCurrentTIme: TLabel;
+    arcBase: TArc;
+    arcValue: TArc;
+    Text1: TText;
+    lblTimeUp: TLabel;
+    hrzScrollBox: THorzScrollBox;
+    lblDevices: TLabel;
+    lblGraphicRequest: TLabel;
+    mainPooler: TRESTServicePooler;
+    mainTM: TTimer;
+    recSystemBar: TRectangle;
+    txtClose: TText;
+    Text2: TText;
+    ltCombo: TLayout;
+    imgSettings: TImage;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lblCloseClick(Sender: TObject);
+    procedure recSystemBarMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure txtCloseClick(Sender: TObject);
+    procedure mainTMTimer(Sender: TObject);
+    procedure imgSettingsClick(Sender: TObject);
+  strict Private
+    Info: TSingletonInformation;
+    uptime: TDateTime;
+    Device: IDevice;
+    GraphicBar: TframeGraphic;
+  private
+    { Private declarations }
+    procedure DeviceEvent(_device: Devices);
+    procedure ClearDeviceList;
+    procedure ClearRequestList;
+    procedure RenderDeviceList;
+    procedure RenderRequestList;
+    procedure UpdateInfo;
+    procedure Notify;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+uses
+  DVList.Frame.DeviceRow, DeviceList.Business.API, Winapi.Windows;
+
+{$R *.fmx}
+
+procedure TfrmMain.ClearDeviceList;
+var
+  I: Integer;
+begin
+  try
+    hrzScrollBox.BeginUpdate;
+    for I := hrzScrollBox.Content.ChildrenCount - 1 downto 0 do
+      if hrzScrollBox.Content.Children[I] is TFrame then
+        TFrame(hrzScrollBox.Content.Children[I]).DisposeOf;
+  finally
+    hrzScrollBox.EndUpdate;
+  end;
+end;
+
+procedure TfrmMain.ClearRequestList;
+var
+  I: Integer;
+begin
+  try
+    vetRequests.BeginUpdate;
+    for I := vetRequests.Content.ChildrenCount - 1 downto 0 do
+      if vetRequests.Content.Children[I] is TFrame then
+        TFrame(vetRequests.Content.Children[I]).DisposeOf;
+  finally
+    vetRequests.EndUpdate;
+  end;
+end;
+
+procedure TfrmMain.DeviceEvent(_device: Devices);
+var
+  DeviceScreen: TFrameDeviceManager;
+begin
+  DeviceScreen := TFrameDeviceManager.Create(nil);
+  DeviceScreen.Parent := ltCombo;
+  DeviceScreen.ShowDeviceInfo.Start;
+
+  with _device do
+  begin
+    with DeviceScreen do
+    begin
+      edtDeviceName.Text := DeviceName;
+      edtAddressDevice.Text := DeviceAddress;
+      ID := DeviceID;
+    end;
+  end;
+end;
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  ReportMemoryLeaksOnShutdown := True;
+  uptime := Now;
+
+ // Device := TDevice.Create;
+  mainPooler.ServerMethodClass := TdataAPI;
+
+  Info := TSingletonInformation.GetInstance;
+  Info.Add(Self);
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+
+  mainPooler.Active := True;
+
+ // RenderRequestList;
+ // RenderDeviceList;
+ // UpdateInfo;
+
+  GraphicBar := TframeGraphic.Create(nil);
+  GraphicBar.Parent := contentGraphic;
+end;
+
+procedure TfrmMain.imgSettingsClick(Sender: TObject);
+var
+  Settings: TFrameSettings;
+begin
+  Settings := TFrameSettings.Create(nil);
+  Settings.Parent := ltCombo;
+  Settings.ShowDeviceInfo.Start;
+end;
+
+procedure TfrmMain.lblCloseClick(Sender: TObject);
+begin
+
+  Application.Terminate;
+end;
+
+procedure TfrmMain.mainTMTimer(Sender: TObject);
+begin
+  lblTimeUp.Text := FormatDateTime('hh:mm:ss', uptime - Now);
+  lblCurrentTIme.Text := FormatDateTime('hh:mm', Now);
+end;
+
+procedure TfrmMain.Notify;
+begin
+  RenderDeviceList;
+  RenderRequestList;
+  UpdateInfo;
+end;
+
+procedure TfrmMain.recSystemBarMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+  Self.StartWindowDrag;
+end;
+
+procedure TfrmMain.RenderDeviceList;
+var
+  I: Integer;
+  DeviceRow: TframeDevice;
+  def_boxColor: Boolean;
+begin
+
+  ClearDeviceList;
+
+  hrzScrollBox.BeginUpdate;
+  def_boxColor := False;
+
+  with Device.GetContents do
+  begin
+    for I := 0 to Count - 1 do
+    begin
+
+      DeviceRow := TframeDevice.Create(nil);
+
+      with DeviceRow do
+      begin
+        txtDeviceName.Text := Items[I].DeviceName;
+        txtDeviceAddress.Text := Items[I].DeviceAddress;
+        DevID := Items[I].DeviceID;
+        ColorCard(def_boxColor);
+        ClickEvent := DeviceEvent;
+      end;
+
+      hrzScrollBox.AddObject(DeviceRow);
+      def_boxColor := not def_boxColor;
+    end;
+    Free;
+  end;
+
+  hrzScrollBox.EndUpdate;
+end;
+
+procedure TfrmMain.RenderRequestList;
+var
+  I: Integer;
+  RequestRow: TframeRequest;
+begin
+  ClearRequestList;
+
+  vetRequests.BeginUpdate;
+
+  with Device.GetLogsRequests do
+  begin
+    for I := 0 to Count - 1 do
+    begin
+      RequestRow := TframeRequest.Create(nil);
+
+      with RequestRow do
+      begin
+        Description.Text := Items[I].RequestType;
+        Date.Text := Items[I].DateRegister;
+      end;
+
+      vetRequests.AddObject(RequestRow);
+    end;
+    Free;
+  end;
+
+  vetRequests.EndUpdate;
+end;
+
+procedure TfrmMain.txtCloseClick(Sender: TObject);
+begin
+  GraphicBar.Free;
+  Info.Free;
+  Application.Terminate;
+end;
+
+procedure TfrmMain.UpdateInfo;
+begin
+  with Device do
+  begin
+    lblTotalRequestValue.Text := IntToStr(LogCount);
+    lblTotalDevicesValue.Text := IntToStr(DevicesCount);
+    lblRequestTodayValue.Text := IntToStr(GetRequestCountToday);
+  end;
+end;
+
+end.

@@ -1,0 +1,69 @@
+unit DVList.DataAPI;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, UDWDataModule, uDWAbout, uRESTDWServerEvents,
+  DVList.Business.Interfaces, uDWJSONObject;
+
+type
+  TdataAPI = class(TServerMethodDataModule)
+    events: TDWServerEvents;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure eventsEventsnewReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure eventsEventseditReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure eventsEventsdeleteReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure eventsEventsstatusReplyEvent(var Params: TDWParams;
+      var Result: string);
+  private
+    { Private declarations }
+    Device : IDevice;
+  public
+    { Public declarations }
+  end;
+
+var
+  dataAPI: TdataAPI;
+
+implementation
+
+uses
+  DVList.TDevice;
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TdataAPI.DataModuleCreate(Sender: TObject);
+begin
+Device := TDevice.Create;
+end;
+
+procedure TdataAPI.eventsEventsdeleteReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+ Device.SetID(Params[0].Value).DeleteDevice;
+end;
+
+procedure TdataAPI.eventsEventseditReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+ Device.SetID(Params[0].Value).SetDeviceName(Params[1].Value).SetDeviceAddress(Params[2].Value).EditDevice;
+end;
+
+procedure TdataAPI.eventsEventsnewReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+  Device.SetDeviceName(Params[0].Value).SetDeviceAddress(Params[1].Value).NewDevice;
+end;
+
+procedure TdataAPI.eventsEventsstatusReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+ Result := '{"Status":OK}';
+end;
+
+end.

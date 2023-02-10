@@ -1,0 +1,23 @@
+unit DeviceList.DataObject.Interfaces;
+
+interface
+
+uses Objects, System.Generics.Collections;
+
+type
+
+  IDeviceInstruction = interface
+    ['{6DA852C8-3BD6-47BF-8293-F48200AE1C9F}']
+    function DevicesCount : Integer;
+    function GetDaysRequestCount : TDaysRequestCount;
+    function LogCount : Integer;function GetContents: TList<Devices>;
+    procedure AddLogRequest(_Type: String);
+    function GetLogsRequests: TList<RequestValues>;
+    procedure Insert;
+    procedure Delete;
+    procedure Update;
+  end;
+
+implementation
+
+end.

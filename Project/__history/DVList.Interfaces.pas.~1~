@@ -1,0 +1,12 @@
+unit DVList.Interfaces;
+
+interface
+
+type
+  IDevice  = interface
+    ['{605B3FB9-AEB0-4726-A037-D905DECD6B2B}']
+  end;
+
+implementation
+
+end.

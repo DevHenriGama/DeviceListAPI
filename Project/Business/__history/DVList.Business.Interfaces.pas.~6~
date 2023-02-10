@@ -1,0 +1,35 @@
+unit DVList.Business.Interfaces;
+
+interface
+
+uses Objects, System.Generics.Collections;
+
+type
+  IDevice  = interface
+    ['{605B3FB9-AEB0-4726-A037-D905DECD6B2B}']
+    function GetContents: TList<Devices>;
+    function SetID(_id: Integer): IDevice;
+    function GetID : Integer;
+    function SetDeviceName(_name: String): IDevice;
+    function GetDeviceName : String;
+    function SetDeviceAddress(_address: String): IDevice;
+    function GetDeviceAddress : String;
+    procedure NewDevice;
+    procedure DeleteDevice;
+    procedure EditDevice;
+  end;
+
+  ISettings = interface
+    ['{E3C77193-A492-458A-B7D5-00FFD266BE44}']
+    procedure DefaultSettings;
+    function GetPort : Integer;
+    procedure SetPort(_port : Integer);
+    function GetAutoStar : Boolean;
+    procedure SetAutoStart(_autoStart : Boolean);
+    function GetStarOnSys : Boolean;
+    procedure SetStartOnSys(_value : Boolean);
+  end;
+
+implementation
+
+end.

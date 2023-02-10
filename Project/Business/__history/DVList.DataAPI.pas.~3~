@@ -1,0 +1,37 @@
+unit DVList.DataAPI;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, UDWDataModule, uDWAbout, uRESTDWServerEvents,
+  DVList.Business.Interfaces;
+
+type
+  TdataAPI = class(TServerMethodDataModule)
+    events: TDWServerEvents;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+    Device : IDevice;
+  public
+    { Public declarations }
+  end;
+
+var
+  dataAPI: TdataAPI;
+
+implementation
+
+uses
+  DVList.TDevice;
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure TdataAPI.DataModuleCreate(Sender: TObject);
+begin
+Device := TDevice.Create;
+end;
+
+end.

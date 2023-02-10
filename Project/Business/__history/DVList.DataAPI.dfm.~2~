@@ -1,0 +1,11 @@
+object dataAPI: TdataAPI
+  Height = 92
+  Width = 100
+  PixelsPerInch = 96
+  object events: TDWServerEvents
+    IgnoreInvalidParams = False
+    Events = <>
+    Left = 32
+    Top = 24
+  end
+end

@@ -1,0 +1,26 @@
+unit DVList.DataAPI;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, UDWDataModule, uDWAbout, uRESTDWServerEvents;
+
+type
+  TdataAPI = class(TServerMethodDataModule)
+    events: TDWServerEvents;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dataAPI: TdataAPI;
+
+implementation
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

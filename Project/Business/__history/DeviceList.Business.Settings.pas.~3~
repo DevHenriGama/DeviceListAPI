@@ -1,0 +1,93 @@
+unit DeviceList.Business.Settings;
+
+interface
+
+uses Inifiles, DeviceList.Business.Interfaces;
+
+type
+
+  TSettings = Class(TInterfacedObject, ISettings)
+
+  private
+    FIniFile: TIniFile;
+    const FileName : string = '\Settings.ini';
+    function FileSettingsPath : String;
+
+  public
+    procedure DefaultSettings;
+    function GetPort: Integer;
+    procedure SetPort(_port: Integer);
+    function GetAutoStar: Boolean;
+    procedure SetAutoStart(_autoStart: Boolean);
+    function GetStarOnSys: Boolean;
+    procedure SetStartOnSys(_value: Boolean);
+    constructor Create;
+    destructor Destroy; override;
+  End;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TSettings }
+
+constructor TSettings.Create;
+begin
+ FIniFile := TIniFile.Create(FileSettingsPath);
+
+ if FileExists(FileSettingsPath) then
+  DefaultSettings;
+end;
+
+procedure TSettings.DefaultSettings;
+begin
+ with FIniFile do begin
+   WriteString('GENERAL','AutoStart','0');
+   WriteString('GENERAL','StartOnSystem','0');
+   WriteString('API','Port','8082');
+ end;
+end;
+
+destructor TSettings.Destroy;
+begin
+   FIniFile.Free;
+  inherited;
+end;
+
+function TSettings.FileSettingsPath: String;
+begin
+ Result := ExtractFilePath(ParamStr(0)) + FileName;
+end;
+
+function TSettings.GetAutoStar: Boolean;
+begin
+ Result := StrToBool(FIniFile.ReadString('GENERAL','AutoStart',''));
+end;
+
+function TSettings.GetPort: Integer;
+begin
+Result := StrToInt(FIniFile.ReadString('API','Port',''));
+end;
+
+function TSettings.GetStarOnSys: Boolean;
+begin
+  Result := StrToBool(FIniFile.ReadString('GENERAL','StartOnSystem',''));
+end;
+
+procedure TSettings.SetAutoStart(_autoStart: Boolean);
+begin
+  FIniFile.WriteString('GENERAL','AutoStart',BoolToStr(_autoStart));
+end;
+
+procedure TSettings.SetPort(_port: Integer);
+begin
+ FIniFile.WriteString('API','Port',IntToStr(_port));
+end;
+
+procedure TSettings.SetStartOnSys(_value: Boolean);
+begin
+ FIniFile.WriteString('GENERAL','StartOnSystem',BoolToStr(_value));
+end;
+
+end.

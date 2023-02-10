@@ -1,0 +1,389 @@
+object frameGraphic: TframeGraphic
+  Align = Client
+  Size.Width = 480.000000000000000000
+  Size.Height = 225.000000000000000000
+  Size.PlatformDefault = False
+  OnPaint = FramePaint
+  object ltmain: TLayout
+    Align = Client
+    Size.Width = 480.000000000000000000
+    Size.Height = 225.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 0
+    object BaseContent: TRectangle
+      Align = Client
+      Fill.Color = claWhitesmoke
+      Size.Width = 480.000000000000000000
+      Size.Height = 200.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Thickness = 0.000000000000000000
+      XRadius = 6.000000000000000000
+      YRadius = 6.000000000000000000
+      object Label1: TLabel
+        Align = Top
+        StyledSettings = [FontColor]
+        Position.Y = 170.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = '0'
+        TabOrder = 0
+      end
+      object Label2: TLabel
+        Align = Top
+        StyledSettings = [FontColor]
+        Position.Y = 132.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = '5'
+        TabOrder = 1
+      end
+      object Label3: TLabel
+        Align = Top
+        StyledSettings = [FontColor]
+        Position.Y = 94.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = '10'
+        TabOrder = 2
+      end
+      object Label4: TLabel
+        Align = Top
+        StyledSettings = [FontColor]
+        Position.Y = 56.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = '15'
+        TabOrder = 3
+      end
+      object Label5: TLabel
+        Align = Top
+        StyledSettings = [FontColor]
+        Position.Y = 18.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 20.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = '20'
+        TabOrder = 4
+      end
+      object Line2: TLine
+        Align = Top
+        LineType = Top
+        Position.Y = 152.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFE6E7EB
+      end
+      object Line4: TLine
+        Align = Top
+        LineType = Top
+        Position.Y = 38.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFE6E7EB
+      end
+      object Line5: TLine
+        Align = Top
+        LineType = Top
+        Position.Y = 114.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFE6E7EB
+      end
+      object Line6: TLine
+        Align = Top
+        LineType = Top
+        Position.Y = 76.000000000000000000
+        Size.Width = 480.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFE6E7EB
+      end
+      object Line7: TLine
+        Align = Top
+        LineType = Top
+        Size.Width = 480.000000000000000000
+        Size.Height = 18.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFE6E7EB
+      end
+    end
+    object Layout1: TLayout
+      Align = Client
+      Size.Width = 480.000000000000000000
+      Size.Height = 200.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 1
+      object D5: TRectangle
+        Tag = 5
+        Align = MostRight
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 300.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object D1: TRectangle
+        Tag = 1
+        Align = Right
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 36.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object D3: TRectangle
+        Tag = 3
+        Align = MostRight
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 168.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object D4: TRectangle
+        Tag = 4
+        Align = MostRight
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 234.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object D6: TRectangle
+        Tag = 6
+        Align = MostRight
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 366.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object D2: TRectangle
+        Tag = 2
+        Align = MostRight
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 102.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+      object D7: TRectangle
+        Tag = 7
+        Align = MostRight
+        Cursor = crHandPoint
+        EnableDragHighlight = False
+        Fill.Color = xFF53A1F4
+        Margins.Left = 18.000000000000000000
+        Margins.Top = 200.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 432.000000000000000000
+        Position.Y = 200.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 0.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        ParentShowHint = False
+        ShowHint = True
+      end
+    end
+    object Rectangle1: TRectangle
+      Align = MostBottom
+      Fill.Color = claWhitesmoke
+      Position.Y = 200.000000000000000000
+      Size.Width = 480.000000000000000000
+      Size.Height = 25.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = xFFE6E7EB
+      XRadius = 6.000000000000000000
+      YRadius = 6.000000000000000000
+      object TAG5: TLabel
+        Tag = 5
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 300.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG5'
+        TabOrder = 0
+      end
+      object TAG6: TLabel
+        Tag = 6
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 366.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG6'
+        TabOrder = 1
+      end
+      object TAG4: TLabel
+        Tag = 4
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 234.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG4'
+        TabOrder = 2
+      end
+      object TAG2: TLabel
+        Tag = 2
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 102.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG2'
+        TabOrder = 3
+      end
+      object TAG3: TLabel
+        Tag = 3
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 168.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG3'
+        TabOrder = 4
+      end
+      object TAG7: TLabel
+        Tag = 7
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 432.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG7'
+        TabOrder = 5
+      end
+      object TAG1: TLabel
+        Tag = 1
+        Align = Right
+        StyledSettings = [FontColor]
+        Margins.Left = 18.000000000000000000
+        Margins.Right = 18.000000000000000000
+        Position.X = 36.000000000000000000
+        Size.Width = 30.000000000000000000
+        Size.Height = 25.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 10.000000000000000000
+        TextSettings.Font.StyleExt = {00050000000000000004000000}
+        Text = 'TAG1'
+        TabOrder = 6
+      end
+    end
+  end
+end

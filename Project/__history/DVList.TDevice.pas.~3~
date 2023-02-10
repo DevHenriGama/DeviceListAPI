@@ -1,0 +1,26 @@
+unit DVList.TDevice;
+
+interface
+
+uses
+  DVList.Interfaces;
+
+type
+
+  TDevice = class(TInterfacedObject, IDevice)
+  private
+    FDeviceID: Integer;
+    FDeviceName: String;
+    FDeviceAddress: String;
+  public
+    function SetID(_id: Integer): IDevice;
+    function SetDeviceName(_name: String): IDevice;
+    function SetDeviceAddress(_address: String): IDevice;
+    procedure NewDevice;
+    procedure DeleteDevice;
+    procedure EditDevice;
+  end;
+
+implementation
+
+end.

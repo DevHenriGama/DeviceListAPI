@@ -1,0 +1,18 @@
+unit DeviceList.Business.SubjectInformation;
+
+interface
+
+uses
+  DeviceList.Business.Interfaces;
+
+type
+TSubjectInformation = class(TInterfacedObject,ISubjectInformation)
+  private
+
+  public
+
+end;
+
+implementation
+
+end.

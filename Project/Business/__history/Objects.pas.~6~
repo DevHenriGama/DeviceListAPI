@@ -1,0 +1,19 @@
+unit Objects;
+
+interface
+
+
+type
+Devices = record
+  DeviceName , DeviceAddress : String;
+  DeviceID : Integer;
+end;
+
+type
+LogList = record
+  RequestType , DateRegister : String;
+end;
+
+implementation
+
+end.

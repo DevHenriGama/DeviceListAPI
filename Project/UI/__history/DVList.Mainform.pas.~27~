@@ -1,0 +1,152 @@
+unit DVList.Mainform;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uDWAbout,
+  uRESTDWBase, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  DVList.Business.Interfaces, DVList.Frame.RequestRow;
+
+type
+  TfrmMain = class(TForm)
+    mainPooler: TRESTServicePooler;
+    recSystemBar: TRectangle;
+    ContentInfo: TRectangle;
+    infoDiv: TLine;
+    lblRequest: TLabel;
+    lblInfomation: TLabel;
+    vetRequests: TVertScrollBox;
+    lblDevices: TLabel;
+    contentGraphic: TRectangle;
+    lblGraphicRequest: TLabel;
+    txtClose: TText;
+    Layout1: TLayout;
+    lblTotalRequest: TLabel;
+    lblTotalRequestValue: TLabel;
+    lblTotalDevices: TLabel;
+    Label2: TLabel;
+    lblRequestToday: TLabel;
+    Label4: TLabel;
+    Rectangle1: TRectangle;
+    arcBase: TArc;
+    arcValue: TArc;
+    Text1: TText;
+    lblTimeUp: TLabel;
+    hrzScrollBox: THorzScrollBox;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lblCloseClick(Sender: TObject);
+    procedure recSystemBarMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure txtCloseClick(Sender: TObject);
+  strict Private
+    Device: IDevice;
+  private
+    { Private declarations }
+    procedure RenderDeviceList;
+    procedure RenderRequestList;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+uses
+  DVList.DataAPI, DVList.TDevice, DVList.Frame.DeviceRow;
+
+{$R *.fmx}
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  mainPooler.ServerMethodClass := TdataAPI;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  mainPooler.Active := True;
+  Device := TDevice.Create;
+
+  RenderRequestList;
+  RenderDeviceList;
+end;
+
+procedure TfrmMain.lblCloseClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmMain.recSystemBarMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+  Self.StartWindowDrag;
+end;
+
+procedure TfrmMain.RenderDeviceList;
+var
+  I: Integer;
+  DeviceRow: TframeDevice;
+  def_boxColor: Boolean;
+begin
+  hrzScrollBox.BeginUpdate;
+
+  with Device.GetContents do
+  begin
+    for I := 0 to Count - 1 do
+    begin
+
+      DeviceRow := TframeDevice.Create(nil);
+
+      with DeviceRow do
+      begin
+        txtDeviceName.Text := Items[I].DeviceName;
+        txtDeviceAddress.Text := Items[I].DeviceAddress;
+        DeviceID := Items[I].DeviceID;
+        ColorCard(def_boxColor);
+      end;
+
+      hrzScrollBox.AddObject(DeviceRow);
+      def_boxColor := not def_boxColor;
+    end;
+  end;
+
+  hrzScrollBox.EndUpdate;
+end;
+
+procedure TfrmMain.RenderRequestList;
+var
+  I: Integer;
+  RequestRow: TframeRequest;
+begin
+  vetRequests.BeginUpdate;
+
+  with Device.GetLogsRequests do
+  begin
+    for I := 0 to Count - 1 do
+    begin
+      RequestRow := TframeRequest.Create(nil);
+
+      with RequestRow do
+      begin
+        Description.Text := Items[I].RequestType;
+        Date.Text := Items[I].DateRegister;
+      end;
+
+      vetRequests.AddObject(RequestRow);
+    end;
+  end;
+
+  vetRequests.EndUpdate;
+end;
+
+procedure TfrmMain.txtCloseClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+end.

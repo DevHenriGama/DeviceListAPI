@@ -1,0 +1,51 @@
+unit DeviceList.Business.SingletonInformation;
+
+interface
+
+uses
+  DeviceList.Business.Interfaces;
+
+type
+  TSingletonInformation = class(TInterfacedObject, ISingletonInformation)
+  strict Private
+    FInstance: TSingletonInformation;
+  private
+    constructor PrivateConstructor;
+  public
+    constructor Create; deprecated;
+    destructor Destroy;override;
+   class function GetInstance: ISingletonInformation;
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TSingletonInformation }
+
+constructor TSingletonInformation.Create;
+begin
+  raise Exception.Create('Métdo depreciado');
+end;
+
+destructor TSingletonInformation.Destroy;
+begin
+
+  inherited;
+end;
+
+class function TSingletonInformation.GetInstance: ISingletonInformation;
+begin
+ if not Assigned(FInstance) then
+  FInstance := TSingletonInformation.PrivateConstructor;
+
+  Result := FInstance;
+end;
+
+constructor TSingletonInformation.PrivateConstructor;
+begin
+
+end;
+
+end.

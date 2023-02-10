@@ -1,0 +1,18 @@
+unit DVList.DataObject.Interfaces;
+
+interface
+
+uses Objects;
+
+type
+  IDeviceInstruction = interface
+    ['{6DA852C8-3BD6-47BF-8293-F48200AE1C9F}']
+    function GetContents : TList<Devices>;
+    procedure Insert;
+    procedure Delete;
+    procedure Update;
+  end;
+
+implementation
+
+end.

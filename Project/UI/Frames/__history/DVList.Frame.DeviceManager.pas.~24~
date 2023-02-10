@@ -1,0 +1,110 @@
+unit DVList.Frame.DeviceManager;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Controls.Presentation, FMX.Edit, FMX.Objects, FMX.Layouts,
+  DeviceList.Business.Device, DeviceList.Business.Interfaces, Objects, FMX.Ani;
+
+type
+  TFrameDeviceManager = class(TFrame)
+    ltBackGround: TLayout;
+    ContentInfo: TRectangle;
+    TransparentSide: TRectangle;
+    baseEdit: TRectangle;
+    edtDeviceName: TEdit;
+    StyleBook1: TStyleBook;
+    Rectangle2: TRectangle;
+    btnSave: TText;
+    ShowDeviceInfo: TFloatAnimation;
+    Close: TFloatAnimation;
+    Image2: TImage;
+    Layout1: TLayout;
+    Layout2: TLayout;
+    Image1: TImage;
+    Circle1: TCircle;
+    Text1: TText;
+    imgDelete: TImage;
+    Rectangle1: TRectangle;
+    edtAddressDevice: TEdit;
+    procedure FramePaint(Sender: TObject; Canvas: TCanvas; const ARect: TRectF);
+    procedure Text1Click(Sender: TObject);
+    procedure CloseFinish(Sender: TObject);
+    procedure Image1Click(Sender: TObject);
+    procedure btnSaveClick(Sender: TObject);
+    procedure imgDeleteClick(Sender: TObject);
+  private
+    FID: Integer;
+    { Private declarations }
+    CrudState : Integer;
+    procedure ClearFields;
+    procedure SetID(const Value: Integer);
+  public
+    { Public declarations }
+    property ID : Integer read FID write SetID;
+  end;
+
+implementation
+
+{$R *.fmx}
+
+{ TFrameDeviceManager }
+
+procedure TFrameDeviceManager.btnSaveClick(Sender: TObject);
+begin
+ with TDevice.New do begin
+   SetID(ID).SetDeviceName(edtDeviceName.Text).SetDeviceAddress(edtAddressDevice.Text);
+
+   if CrudState = 0 then begin
+      EditDevice;
+   end
+   else
+   begin
+     NewDevice;
+     CrudState := 0;
+   end;
+ end;
+end;
+
+procedure TFrameDeviceManager.ClearFields;
+begin
+edtDeviceName.Text := '';
+edtAddressDevice.Text := '';
+end;
+
+procedure TFrameDeviceManager.CloseFinish(Sender: TObject);
+begin
+Self.Free;
+end;
+
+procedure TFrameDeviceManager.FramePaint(Sender: TObject; Canvas: TCanvas;
+  const ARect: TRectF);
+begin
+Device := TDevice.Create;
+end;
+
+procedure TFrameDeviceManager.Image1Click(Sender: TObject);
+begin
+Close.Start;
+end;
+
+procedure TFrameDeviceManager.imgDeleteClick(Sender: TObject);
+begin
+Device.SetID(ID).DeleteDevice;
+ClearFields;
+end;
+
+procedure TFrameDeviceManager.SetID(const Value: Integer);
+begin
+  FID := Value;
+end;
+
+procedure TFrameDeviceManager.Text1Click(Sender: TObject);
+begin
+ClearFields;
+CrudState := 1;
+end;
+
+end.

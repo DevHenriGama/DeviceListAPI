@@ -1,0 +1,121 @@
+unit DVList.Mainform;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes,
+  System.Variants,
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, uDWAbout,
+  uRESTDWBase, FMX.Objects, FMX.Layouts, FMX.Controls.Presentation,
+  FMX.StdCtrls,
+  DVList.Business.Interfaces;
+
+type
+  TfrmMain = class(TForm)
+    mainPooler: TRESTServicePooler;
+    recSystemBar: TRectangle;
+    ContentInfo: TRectangle;
+    infoDiv: TLine;
+    lblRequest: TLabel;
+    lblInfomation: TLabel;
+    vetRequests: TVertScrollBox;
+    vetDevices: TVertScrollBox;
+    lblDevices: TLabel;
+    contentGraphic: TRectangle;
+    lblGraphicRequest: TLabel;
+    txtClose: TText;
+    Layout1: TLayout;
+    lblTotalRequest: TLabel;
+    lblTotalRequestValue: TLabel;
+    lblTotalDevices: TLabel;
+    Label2: TLabel;
+    lblRequestToday: TLabel;
+    Label4: TLabel;
+    Rectangle1: TRectangle;
+    arcBase: TArc;
+    arcValue: TArc;
+    Text1: TText;
+    lblTimeUp: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure lblCloseClick(Sender: TObject);
+    procedure recSystemBarMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Single);
+    procedure txtCloseClick(Sender: TObject);
+  strict Private
+    Device: IDevice;
+  private
+    { Private declarations }
+    procedure RenderDeviceList;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmMain: TfrmMain;
+
+implementation
+
+uses
+  DVList.DataAPI, DVList.TDevice, DVList.Frame.DeviceRow;
+
+{$R *.fmx}
+
+procedure TfrmMain.FormCreate(Sender: TObject);
+begin
+  mainPooler.ServerMethodClass := TdataAPI;
+end;
+
+procedure TfrmMain.FormShow(Sender: TObject);
+begin
+  mainPooler.Active := True;
+  Device := TDevice.Create;
+
+  RenderDeviceList;
+end;
+
+procedure TfrmMain.lblCloseClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+procedure TfrmMain.recSystemBarMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Single);
+begin
+  Self.StartWindowDrag;
+end;
+
+procedure TfrmMain.RenderDeviceList;
+var
+  I: Integer;
+  DeviceRow: TframeDevice;
+begin
+  vetDevices.BeginUpdate;
+
+  with Device.GetContents do
+  begin
+    for I := 0 to Count - 1  do
+    begin
+
+      DeviceRow := TframeDevice.Create(nil);
+
+      with DeviceRow do
+      begin
+        txtDeviceName.Text := Items[I].DeviceName;
+        txtDeviceAddress.Text := Items[I].DeviceAddress;
+        DeviceID := Items[I].DeviceID;
+      end;
+
+      vetDevices.AddObject(DeviceRow);
+    end;
+  end;
+
+  vetDevices.EndUpdate;
+end;
+
+procedure TfrmMain.txtCloseClick(Sender: TObject);
+begin
+  Application.Terminate;
+end;
+
+end.

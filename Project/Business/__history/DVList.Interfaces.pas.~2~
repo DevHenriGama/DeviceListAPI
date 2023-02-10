@@ -1,0 +1,18 @@
+unit DVList.Interfaces;
+
+interface
+
+type
+  IDevice  = interface
+    ['{605B3FB9-AEB0-4726-A037-D905DECD6B2B}']
+     function SetID(_id : Integer) : IDevice;
+     function SetDeviceName(_name : String) : IDevice;
+     function SetDeviceAddress(_address : String) : IDevice;
+     procedure NewDevice;
+     procedure DeleteDevice;
+     procedure EditDevice;
+  end;
+
+implementation
+
+end.

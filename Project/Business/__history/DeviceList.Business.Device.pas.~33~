@@ -1,0 +1,122 @@
+unit DeviceList.Business.Device;
+
+interface
+
+uses
+   Objects,
+  System.Generics.Collections, DeviceList.DataObject.Interfaces,
+  DeviceList.Business.Interfaces, DeviceList.DataObjects.Instructions;
+
+
+type
+
+  TDevice = class
+  private
+    FDeviceID: Integer;
+    FDeviceName: String;
+    FDeviceAddress: String;
+    FInstructions : IDeviceInstruction;
+    procedure SetDeviceAddress(const Value: String);
+    procedure SetDeviceID(const Value: Integer);
+    procedure SetDeviceName(const Value: String);
+  public
+    constructor Create;
+    Destructor Destroy;override;
+    function GetRequestToday  :Integer;
+    function GetWeekRequest : TDaysRequestCount;
+    function GetListDevices: TList<Devices>;
+    function NumDevices : Integer;
+    function RequestCount : Integer;
+    procedure InsertLogRequest(_Type: String);
+    function GetListRequests: TList<RequestValues>;
+    property DeviceID : Integer read FDeviceID write SetDeviceID;
+    property DeviceName : String read FDeviceName write SetDeviceName;
+    property DeviceAddress : String read FDeviceAddress write SetDeviceAddress;
+    procedure NewDevice;
+    procedure DeleteDevice;
+    procedure EditDevice;
+  end;
+
+implementation
+
+
+{ TDevice }
+
+procedure TDevice.InsertLogRequest(_Type: String);
+begin
+FInstructions.AddLogRequest(_Type);
+end;
+
+constructor TDevice.Create;
+begin
+FInstructions := TDeviceInstruction.Create;
+end;
+
+procedure TDevice.DeleteDevice;
+begin
+FInstructions.Insert(FDeviceName, FDeviceAddress);
+end;
+
+destructor TDevice.Destroy;
+begin
+
+  inherited;
+end;
+
+function TDevice.NumDevices: Integer;
+begin
+ Result := FInstructions.DevicesCount;
+end;
+
+procedure TDevice.EditDevice;
+begin
+FInstructions.Update(FDeviceID,FDeviceName,FDeviceAddress);
+end;
+
+function TDevice.GetListDevices: TList<Devices>;
+begin
+ Result := FInstructions.GetContents;
+end;
+
+function TDevice.GetWeekRequest: TDaysRequestCount;
+begin
+ Result := FInstructions.GetDaysRequestCount;
+end;
+
+function TDevice.GetListRequests: TList<RequestValues>;
+begin
+ Result := FInstructions.GetLogsRequests;
+end;
+
+function TDevice.GetRequestToday: Integer;
+begin
+Result := FInstructions.GetRequestCountToday;
+end;
+
+function TDevice.RequestCount: Integer;
+begin
+Result := FInstructions.LogCount;
+end;
+
+procedure TDevice.SetDeviceAddress(const Value: String);
+begin
+  FDeviceAddress := Value;
+end;
+
+procedure TDevice.SetDeviceID(const Value: Integer);
+begin
+  FDeviceID := Value;
+end;
+
+procedure TDevice.SetDeviceName(const Value: String);
+begin
+  FDeviceName := Value;
+end;
+
+procedure TDevice.NewDevice;
+begin
+FInstructions.Insert(FDeviceName,FDeviceAddress);
+end;
+
+
+end.

@@ -1,0 +1,25 @@
+unit DVList.DataAPI;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, UDWDataModule;
+
+type
+  TdataAPI = class(TServerMethodDataModule)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dataAPI: TdataAPI;
+
+implementation
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+
+{$R *.dfm}
+
+end.

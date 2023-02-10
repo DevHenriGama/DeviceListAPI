@@ -1,0 +1,16 @@
+unit DVList.TDevice;
+
+interface
+
+type
+
+ TDevice = class(TInterfacedObject, IDevice)
+   private
+
+   public
+
+ end;
+
+implementation
+
+end.

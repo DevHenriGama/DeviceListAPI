@@ -1,0 +1,14 @@
+unit Objects;
+
+interface
+
+
+type
+Devices = record
+  DeviceName , DeviceAddress : String;
+  DeviceID : Integer;
+end;
+
+implementation
+
+end.

@@ -1,0 +1,5 @@
+object dataAPI: TdataAPI
+  Height = 531
+  Width = 807
+  PixelsPerInch = 96
+end

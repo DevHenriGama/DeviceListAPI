@@ -1,0 +1,51 @@
+object frameRequest: TframeRequest
+  Align = Top
+  Size.Width = 189.000000000000000000
+  Size.Height = 61.000000000000000000
+  Size.PlatformDefault = False
+  object BaseContentLine: TRectangle
+    Align = Center
+    Size.Width = 175.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Thickness = 0.000000000000000000
+    XRadius = 6.000000000000000000
+    YRadius = 6.000000000000000000
+    object indProcess: TRectangle
+      Align = MostLeft
+      Fill.Color = xFF53A1F4
+      Margins.Left = 8.000000000000000000
+      Margins.Top = 7.000000000000000000
+      Margins.Right = 8.000000000000000000
+      Margins.Bottom = 7.000000000000000000
+      Position.X = 8.000000000000000000
+      Position.Y = 7.000000000000000000
+      Size.Width = 8.000000000000000000
+      Size.Height = 30.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Thickness = 0.000000000000000000
+      XRadius = 4.000000000000000000
+      YRadius = 4.000000000000000000
+    end
+    object Description: TLabel
+      Align = Left
+      Position.X = 24.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      Text = 'Description'
+      TabOrder = 1
+    end
+    object Date: TLabel
+      Align = Left
+      StyledSettings = [Family, Size, FontColor]
+      Position.X = 97.000000000000000000
+      Size.Width = 70.000000000000000000
+      Size.Height = 44.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      Text = 'Date'
+      TabOrder = 2
+    end
+  end
+end

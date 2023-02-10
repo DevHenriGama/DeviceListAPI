@@ -1,0 +1,90 @@
+unit DVList.TDevice;
+
+interface
+
+uses
+  DVList.Business.Interfaces, DVList.DataObject.Interfaces;
+
+
+type
+
+  TDevice = class(TInterfacedObject, IDevice)
+  private
+    FDeviceID: Integer;
+    FDeviceName: String;
+    FDeviceAddress: String;
+    Instructions : IDeviceInstruction;
+  public
+    constructor Create;
+    function SetID(_id: Integer): IDevice;
+    function GetID : Integer;
+    function SetDeviceName(_name: String): IDevice;
+    function GetDeviceName : String;
+    function SetDeviceAddress(_address: String): IDevice;
+    function GetDeviceAddress : String;
+    procedure NewDevice;
+    procedure DeleteDevice;
+    procedure EditDevice;
+  end;
+
+implementation
+
+uses
+  DVList.Instruction;
+
+{ TDevice }
+
+constructor TDevice.Create;
+begin
+ Instructions := TDeviceInstruction.Create(Self);
+end;
+
+procedure TDevice.DeleteDevice;
+begin
+  Instructions.Delete;
+end;
+
+procedure TDevice.EditDevice;
+begin
+  Instructions.Update;
+end;
+
+function TDevice.GetDeviceAddress: String;
+begin
+ Result := FDeviceAddress;
+end;
+
+function TDevice.GetDeviceName: String;
+begin
+ Result := FDeviceName;
+end;
+
+function TDevice.GetID: Integer;
+begin
+ Result := FDeviceID;
+end;
+
+procedure TDevice.NewDevice;
+begin
+ Instructions.Insert;
+end;
+
+function TDevice.SetDeviceAddress(_address: String): IDevice;
+begin
+ Result := Self;
+ FDeviceAddress := _address;
+end;
+
+function TDevice.SetDeviceName(_name: String): IDevice;
+begin
+ Result := Self;
+ FDeviceName := _name;
+end;
+
+function TDevice.SetID(_id: Integer): IDevice;
+begin
+Result := Self;
+FDeviceID := _id;
+end;
+
+end.

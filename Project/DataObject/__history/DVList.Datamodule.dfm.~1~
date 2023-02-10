@@ -1,0 +1,5 @@
+object dmData: TdmData
+  Height = 441
+  Width = 546
+  PixelsPerInch = 96
+end

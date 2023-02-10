@@ -1,0 +1,15 @@
+unit DVList.DataObject.Interfaces;
+
+interface
+
+type
+  IDeviceInstruction = interface
+    ['{6DA852C8-3BD6-47BF-8293-F48200AE1C9F}']
+    procedure Insert;
+    procedure Delete;
+    procedure Update;
+  end;
+
+implementation
+
+end.

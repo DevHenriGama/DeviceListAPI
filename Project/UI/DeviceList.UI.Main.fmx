@@ -1,0 +1,436 @@
+object frmMain: TfrmMain
+  Tag = 7
+  Left = 0
+  Top = 0
+  BorderIcons = []
+  BorderStyle = None
+  Caption = 'DeviceList'
+  ClientHeight = 720
+  ClientWidth = 1050
+  Fill.Color = xFFE6E7EB
+  Fill.Kind = Solid
+  Position = ScreenCenter
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnShow = FormShow
+  DesignerMasterStyle = 0
+  object ltBackground: TLayout
+    Align = Client
+    Size.Width = 1050.000000000000000000
+    Size.Height = 720.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    object contentGraphic: TRectangle
+      Align = Bottom
+      Fill.Color = claWhitesmoke
+      Margins.Left = 20.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Margins.Bottom = 20.000000000000000000
+      Position.X = 20.000000000000000000
+      Position.Y = 475.000000000000000000
+      Size.Width = 490.000000000000000000
+      Size.Height = 225.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Thickness = 0.000000000000000000
+      XRadius = 6.000000000000000000
+      YRadius = 6.000000000000000000
+    end
+    object ContentInfo: TRectangle
+      Align = MostRight
+      Fill.Color = claWhitesmoke
+      Margins.Top = 20.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Margins.Bottom = 20.000000000000000000
+      Position.X = 530.000000000000000000
+      Position.Y = 65.000000000000000000
+      Size.Width = 500.000000000000000000
+      Size.Height = 635.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Thickness = 0.000000000000000000
+      XRadius = 6.000000000000000000
+      YRadius = 6.000000000000000000
+      object infoDiv: TLine
+        Align = Center
+        LineType = Diagonal
+        Size.Width = 1.000000000000000000
+        Size.Height = 569.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFD9D9D9
+      end
+      object lblRequest: TLabel
+        StyledSettings = [Style, FontColor]
+        Position.X = 40.000000000000000000
+        Position.Y = 33.000000000000000000
+        Size.Width = 153.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Readex Pro'
+        TextSettings.Font.Size = 25.000000000000000000
+        Text = 'Requisi'#231#245'es'
+        TabOrder = 1
+        object lblInfomation: TLabel
+          StyledSettings = [Style, FontColor]
+          Position.X = 248.000000000000000000
+          Size.Width = 169.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Readex Pro'
+          TextSettings.Font.Size = 25.000000000000000000
+          Text = 'Informa'#231#245'es'
+          TabOrder = 1
+        end
+      end
+      object Layout1: TLayout
+        Position.X = 291.000000000000000000
+        Position.Y = 296.000000000000000000
+        Size.Width = 182.000000000000000000
+        Size.Height = 145.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 3
+        object lblTotalRequest: TLabel
+          Align = Top
+          StyledSettings = [Style, FontColor]
+          Size.Width = 182.000000000000000000
+          Size.Height = 41.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Readex Pro'
+          TextSettings.Font.Size = 15.000000000000000000
+          Text = 'Total Requisi'#231#245'es:'
+          TabOrder = 5
+          object lblTotalRequestValue: TLabel
+            StyledSettings = [FontColor]
+            Position.X = 134.000000000000000000
+            Position.Y = 13.000000000000000000
+            Size.Width = 24.000000000000000000
+            Size.Height = 17.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Readex Pro'
+            TextSettings.Font.Size = 20.000000000000000000
+            TextSettings.Font.StyleExt = {00060000000000000004000000}
+            Text = '0'
+            TabOrder = 4
+          end
+        end
+        object lblTotalDevices: TLabel
+          Align = Top
+          StyledSettings = [Style, FontColor]
+          Position.Y = 82.000000000000000000
+          Size.Width = 182.000000000000000000
+          Size.Height = 41.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Readex Pro'
+          TextSettings.Font.Size = 15.000000000000000000
+          Text = 'Total Dispositivos:'
+          TabOrder = 4
+          object lblTotalDevicesValue: TLabel
+            StyledSettings = [FontColor]
+            Position.X = 134.000000000000000000
+            Position.Y = 13.000000000000000000
+            Size.Width = 24.000000000000000000
+            Size.Height = 17.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Readex Pro'
+            TextSettings.Font.Size = 20.000000000000000000
+            TextSettings.Font.StyleExt = {00060000000000000004000000}
+            Text = '0'
+            TabOrder = 4
+          end
+        end
+        object lblRequestToday: TLabel
+          Align = Top
+          StyledSettings = [Style, FontColor]
+          Position.Y = 41.000000000000000000
+          Size.Width = 182.000000000000000000
+          Size.Height = 41.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Readex Pro'
+          TextSettings.Font.Size = 15.000000000000000000
+          Text = 'Requisi'#231#245'es  de Hoje:'
+          TabOrder = 3
+          object lblRequestTodayValue: TLabel
+            StyledSettings = [FontColor]
+            Position.X = 160.000000000000000000
+            Position.Y = 12.000000000000000000
+            Size.Width = 24.000000000000000000
+            Size.Height = 17.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Readex Pro'
+            TextSettings.Font.Size = 20.000000000000000000
+            TextSettings.Font.StyleExt = {00060000000000000004000000}
+            Text = '0'
+            TabOrder = 4
+          end
+        end
+      end
+      object Rectangle1: TRectangle
+        Fill.Color = xFFE6E7EB
+        Position.X = 267.000000000000000000
+        Position.Y = 486.000000000000000000
+        Size.Width = 218.000000000000000000
+        Size.Height = 128.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Thickness = 0.000000000000000000
+        XRadius = 6.000000000000000000
+        YRadius = 6.000000000000000000
+        object lblCurrentTIme: TLabel
+          Align = Client
+          StyledSettings = [FontColor]
+          Size.Width = 218.000000000000000000
+          Size.Height = 128.000000000000000000
+          Size.PlatformDefault = False
+          TextSettings.Font.Family = 'Readex Pro'
+          TextSettings.Font.Size = 20.000000000000000000
+          TextSettings.Font.StyleExt = {00050000000000000004000000}
+          TextSettings.HorzAlign = Center
+          Text = 'Bem-Vindo'
+          TabOrder = 0
+          object imgSettings: TImage
+            MultiResBitmap.Height = 32
+            MultiResBitmap.Width = 32
+            MultiResBitmap = <
+              item
+                Width = 32
+                Height = 32
+                PNG = {
+                  89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+                  F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                  062D494441545847B5567B889545143F6766BEEFEEAE996858945241C5668F2D
+                  2DED9D05EDF696224A53AC4D4AE8B1FD910AA5F48092A8EC4166510649D6B65A
+                  414559EC16946866F6929E6E516D9010D2B532D77BBF9939A7F3DD3B7BF7DEBD
+                  DFDA06F98373EF3767CE9C3333E73508FF156BBFDA4F41713BC46674E09491B8
+                  5D04B943E0AAE3FE0E9C114185FF11C360F168ADF568ED196A48785144CD416C
+                  C41876038DAF6E9D08CF7F312A0C2B300493B427319A41893D26880D42749474
+                  0D83CC0D34756D9942BBDDD646E33F6DEAFC787260976088A71A397126119C02
+                  CC15B7A66B531DA9AE546760D7A02E06C6AC1641861ED9DAB812837D11502F11
+                  B5FDE0E846D4EAF8127F187870BF68308F9706EC97CADA5CE99B202FD65AFF9C
+                  3BF5B3D238A06603E39FDB7C22397C17623820B0FE67F83FC0EBB6DFE74DDB12
+                  18831B18F7CC4713B581ADC2289F7C1F8101F25E514BBEFDF45FD3712506726C
+                  F26879475D740F21F4BE5702EE3E63A955311C9B52FAAD9D5F5A9ECB5E3740A9
+                  8D5C31DE19CCD6BAE0B027374E2E28DC14CB7E026B102EC983CE2D505EBD43DA
+                  5F0D4C6DA4F0D0744A36D10788DDCAE92E6FDC85E8EC323071DD4D2600C506E2
+                  D3FA6E3AE3F3C0AACD8274A2C1D3E2A1E9A51C7D1F693855793F9678772F105D
+                  AB89371A0BF7468E1F53C49F88CC4D0EFBB7194FFB9765DD0F43F53438BFA4DA
+                  788ABA34342E15AEBE369BD7CE5DCC161702F1E2C8471D8AED058AA86888DA34
+                  D17491EBD78ECFCB59D38E7BF84E2CAA05DAD245BA58DC59AD4B895C305341ED
+                  062487E534B78A62C9E9405E2D300C97C6059A25AE392F623FA6C1B91F238207
+                  0DD3755217E64444F74709F5464847184D67111467470C171AD40BAB7569E61B
+                  83A50AB0F9810D52426DB3F73049FC380D116E097302EE95C49E0EDAF632E76E
+                  60A48315E0A36172382C64E0DFD0C20A395E33685A0FA08F0A73520E6039126F
+                  D11ABEB536DA862D0F76FF25175FDB5806711F33E71178BE633E9F9CFE268EA1
+                  AE3CD7222938D2CD46C17BCCFA09443E50CEB9384C0E81DBA5B4CF682C81C4CF
+                  EB15419BF2D819335EDEA87954965C2D450D398FB3245BD64840B6A2830FB2E5
+                  52D2A36503B5915A4D5182DB8D75878AA234F7A70E9D1F8E14534BE47C1F121D
+                  1E3BF8354B668054665309849E5982098CDC65E439C992C9A254563316639B5E
+                  73922933407BBF01721394F3BF488E1F25F455964C36F1D752194F9014ED8BBC
+                  9A902D5326D900EFAAF54B35F9B3A5CA75CBF76522D9E5F7140BF53243680FF7
+                  4B3D78415B77BEA45DB7B63EAD13D9B205FE0B4F5FF4DAE808A266A57912334C
+                  53889534F4DEF502EBE9A0EC36C4781E201F2469B8224C0F870E2927FD16DD23
+                  31723358BD419E514786B914CB254DB790C76F2D88DEC00C606C5DF4FA4FE2F5
+                  C3024338344F7EF6B7407745A8CF44867321B10F431C350491121248764718DD
+                  2EA7FEB000DC13A1BA1B3DEE915AF06C101165F465CFB2192D6154C290528C2C
+                  95EFF1EAEA2501B54C3AD3BA26829739296C14B7ECE0188F10FFDE26BD61A5C8
+                  BC20BC5B25F52645C4795F80F79B08D7444E75932F3C54AD4BFAC753C1500575
+                  BDA01C1CD5BE82715C48D629AB1E6E64738F21F76C6CE96DA9FD63B483F5C6F1
+                  3A29C7E36282F774C24F3668BA03D83D86B6F0562344636B743134053315D4B8
+                  6046C76B9331296E8238AE6FC7E0774A3C2CB264DF326866CA13AD4D210457E1
+                  CFCCD4CDCAAC91E27589E4EF437294B1E5B92A244991E3DC696F2CBFACD2112B
+                  1BB864FE1B4D91B19F4990FDDBD3FA7B09D69759F1FB5270B69738AC2788F7CE
+                  210757AADA80AB03016FB32E9AF2E633334A9DB1B281CBAF7F75A2F4F1ADF2B9
+                  4F9F64823C816B79E5E999A527598D0B665FBFF6440FFE5D05669F3C4AC5F01F
+                  8C71DBDA9557D43F4A0730A7BD6B0A3AD78351F94945E23715C74B4A939E3A40
+                  AB4A8A66C2539FC82C4F3F65ED52595B8A27B6499E8D697D71D5ACE19FE50368
+                  9FD335C561D2A394D921FEBE7AF5EAD9216818DBAF59932ABFB93CAEC38A55CF
+                  CFEC10B5D24100E6CEED9C2CEF8B9788DC78C371EBAA176B8DA7A84BC314A9E0
+                  28956B9185270D1A4F81AC1C6FCE6A2A29A57303C653A46B531DA9AE2CE32932
+                  6F606F983FABF36479A0547C580DA5E0E4A73AE77C1A862342E60DEC0DC69BEF
+                  A4A86435B05D284FAC20364200FC03A48845E042F1AF980000000049454E44AE
+                  426082}
+                FileName = 
+                  'D:\Progama'#231#227'o\Projects\Delphi\DeviceList API\DeviceListAPI2\Sour' +
+                  'ce\setting (1).png'
+              end>
+            Cursor = crHandPoint
+            MarginWrapMode = Original
+            Position.X = 176.000000000000000000
+            Position.Y = 138.000000000000000000
+            Size.Width = 42.000000000000000000
+            Size.Height = 34.000000000000000000
+            Size.PlatformDefault = False
+            WrapMode = Center
+            OnClick = imgSettingsClick
+          end
+        end
+      end
+      object arcBase: TArc
+        Position.X = 304.000000000000000000
+        Position.Y = 96.000000000000000000
+        Size.Width = 160.000000000000000000
+        Size.Height = 160.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Color = xFFE6E7EB
+        Stroke.Thickness = 10.000000000000000000
+        EndAngle = 360.000000000000000000
+        object arcValue: TArc
+          Align = Center
+          Size.Width = 160.000000000000000000
+          Size.Height = 160.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = xFF53A1F4
+          Stroke.Thickness = 0.000000000000000000
+          EndAngle = 60.000000000000000000
+          object Text1: TText
+            Align = Center
+            Size.Width = 98.000000000000000000
+            Size.Height = 87.000000000000000000
+            Size.PlatformDefault = False
+            Text = 'Tempo de funcionamento'
+            TextSettings.Font.Family = 'Readex Pro'
+            TextSettings.Font.StyleExt = {00060000000000000004000000}
+            object lblTimeUp: TLabel
+              Align = Bottom
+              StyledSettings = [Size, FontColor]
+              Position.Y = 70.000000000000000000
+              Size.Width = 98.000000000000000000
+              Size.Height = 17.000000000000000000
+              Size.PlatformDefault = False
+              TextSettings.Font.Family = 'Readex Pro'
+              TextSettings.Font.StyleExt = {00070000000000000004000000}
+              TextSettings.HorzAlign = Center
+              Text = '20hs'
+              TabOrder = 0
+            end
+          end
+        end
+      end
+      object vetRequests: TVertScrollBox
+        Position.X = 24.000000000000000000
+        Position.Y = 96.000000000000000000
+        Size.Width = 201.000000000000000000
+        Size.Height = 521.000000000000000000
+        Size.PlatformDefault = False
+        TabOrder = 2
+        Viewport.Width = 201.000000000000000000
+        Viewport.Height = 521.000000000000000000
+      end
+    end
+    object hrzScrollBox: THorzScrollBox
+      Align = Top
+      Margins.Left = 20.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Position.X = 20.000000000000000000
+      Position.Y = 108.000000000000000000
+      Size.Width = 490.000000000000000000
+      Size.Height = 200.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 6
+      Viewport.Width = 490.000000000000000000
+      Viewport.Height = 200.000000000000000000
+    end
+    object lblDevices: TLabel
+      Align = Top
+      StyledSettings = [FontColor]
+      Margins.Left = 20.000000000000000000
+      Margins.Top = 30.000000000000000000
+      Position.X = 20.000000000000000000
+      Position.Y = 75.000000000000000000
+      Size.Width = 510.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Readex Pro'
+      TextSettings.Font.Size = 20.000000000000000000
+      TextSettings.Font.StyleExt = {00050000000000000004000000}
+      Text = 'Dispositivos'
+      TabOrder = 3
+    end
+    object lblGraphicRequest: TLabel
+      Align = Bottom
+      StyledSettings = [FontColor]
+      Margins.Left = 20.000000000000000000
+      Position.X = 20.000000000000000000
+      Position.Y = 432.000000000000000000
+      Size.Width = 510.000000000000000000
+      Size.Height = 33.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Readex Pro'
+      TextSettings.Font.Size = 20.000000000000000000
+      TextSettings.Font.StyleExt = {00050000000000000004000000}
+      Text = 'Grafico de Requisi'#231#245'es'
+      TabOrder = 1
+    end
+    object mainTM: TTimer
+      OnTimer = mainTMTimer
+      Left = 472
+      Top = 56
+    end
+    object recSystemBar: TRectangle
+      Align = MostTop
+      Fill.Color = xFF111E3E
+      Size.Width = 1050.000000000000000000
+      Size.Height = 45.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Thickness = 0.000000000000000000
+      OnMouseDown = recSystemBarMouseDown
+      object txtClose: TText
+        Align = MostRight
+        Cursor = crHandPoint
+        Position.X = 1000.000000000000000000
+        Size.Width = 50.000000000000000000
+        Size.Height = 45.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'X'
+        TextSettings.Font.Size = 26.000000000000000000
+        TextSettings.Font.StyleExt = {00060000000000000004000000}
+        TextSettings.FontColor = claWhite
+        OnClick = txtCloseClick
+      end
+      object Text2: TText
+        Align = Center
+        Size.Width = 104.000000000000000000
+        Size.Height = 45.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Device List API'
+        TextSettings.Font.Size = 14.000000000000000000
+        TextSettings.Font.StyleExt = {00060000000000000004000000}
+        TextSettings.FontColor = claWhite
+      end
+    end
+  end
+  object ltCombo: TLayout
+    Align = Client
+    Size.Width = 1050.000000000000000000
+    Size.Height = 720.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 6
+  end
+  object mainPooler: TRESTServicePooler
+    Active = False
+    CORS = False
+    CORS_CustomHeaders.Strings = (
+      'Access-Control-Allow-Origin=*'
+      
+        'Access-Control-Allow-Methods=GET, POST, PATCH, PUT, DELETE, OPTI' +
+        'ONS'
+      
+        'Access-Control-Allow-Headers=Content-Type, Origin, Accept, Autho' +
+        'rization, X-CUSTOM-HEADER')
+    PathTraversalRaiseError = True
+    RequestTimeout = -1
+    ServicePort = 8082
+    ProxyOptions.Port = 8888
+    AuthenticationOptions.AuthorizationOption = rdwAONone
+    SSLMethod = sslvSSLv2
+    SSLVersions = []
+    Encoding = esUtf8
+    RootPath = '/'
+    SSLVerifyMode = []
+    SSLVerifyDepth = 0
+    ForceWelcomeAccess = False
+    CriptOptions.Use = False
+    CriptOptions.Key = 'RDWBASEKEY256'
+    Left = 776
+    Top = 528
+  end
+end

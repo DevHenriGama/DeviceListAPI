@@ -1,0 +1,131 @@
+unit DeviceList.Business.API;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, UDWDataModule, uDWAbout, uRESTDWServerEvents,
+  uDWJSONObject, DeviceList.Business.Interfaces, DeviceList.Business.Device;
+
+type
+  TdataAPI = class(TServerMethodDataModule)
+    events: TDWServerEvents;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure eventsEventsnewReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure eventsEventseditReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure eventsEventsdeleteReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure eventsEventsstatusReplyEvent(var Params: TDWParams;
+      var Result: string);
+    procedure ServerMethodDataModuleDestroy(Sender: TObject);
+    procedure eventsEventsgetlistReplyEvent(var Params: TDWParams;
+      var Result: string);
+  private
+    { Private declarations }
+    Device: TDevice;
+  public
+    { Public declarations }
+  end;
+
+var
+  dataAPI: TdataAPI;
+
+implementation
+
+uses System.JSON;
+
+{%CLASSGROUP 'FMX.Controls.TControl'}
+{$R *.dfm}
+
+procedure TdataAPI.DataModuleCreate(Sender: TObject);
+begin
+  Device := TDevice.Create;
+end;
+
+procedure TdataAPI.eventsEventsdeleteReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+
+  with Device do
+  begin
+    InsertLogRequest('Delete Device');
+    DeviceID := Params[0].Value;
+    DeleteDevice;
+  end;
+  Result := '{"status_operation":"Delete Device"}';
+end;
+
+procedure TdataAPI.eventsEventseditReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+  with Device do
+  begin
+    InsertLogRequest('Update Device');
+    DeviceID := Params[0].Value;
+    DeviceName := Params[1].Value;
+    DeviceAddress := Params[2].Value;
+    EditDevice;
+  end;
+  Result := '{"status_operation":"Update Device"}';
+end;
+
+procedure TdataAPI.eventsEventsgetlistReplyEvent(var Params: TDWParams;
+  var Result: string);
+var
+  I: Integer;
+  JObject, JDevices: TJSONObject;
+  JArray: TJSONArray;
+  Content : String;
+begin
+  JArray := TJSONArray.Create;
+  JObject := TJSONObject.Create;
+
+  JObject.AddPair('total_devices', Device.GetListDevices.Count);
+  with Device.GetListDevices do
+  begin
+    for I := 0 to Count - 1 do
+    begin
+      JDevices := TJSONObject.Create;
+      JDevices.AddPair('name', Items[I].DeviceName);
+      JDevices.AddPair('address', Items[I].DeviceAddress);
+      JArray.AddElement(JDevices);
+    end;
+    JObject.AddPair('devices',JArray);
+
+
+     Free;
+  end;
+   Device.InsertLogRequest('Get List');
+  Content := JObject.ToString;
+  Result := Content;
+
+  JObject.Free;
+end;
+
+procedure TdataAPI.eventsEventsnewReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+  with Device do
+  begin
+    InsertLogRequest('New Device');
+    DeviceName := Params[0].Value;
+    DeviceAddress := Params[1].Value;
+    NewDevice;
+  end;
+  Result := '{"status_operation":"New Device"}';
+end;
+
+procedure TdataAPI.eventsEventsstatusReplyEvent(var Params: TDWParams;
+  var Result: string);
+begin
+  Device.InsertLogRequest('Status API');
+  Result := '{"Status":OK}';
+end;
+
+procedure TdataAPI.ServerMethodDataModuleDestroy(Sender: TObject);
+begin
+  Device.Free;
+end;
+
+end.

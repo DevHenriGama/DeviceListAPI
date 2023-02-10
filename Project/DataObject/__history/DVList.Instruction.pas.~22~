@@ -1,0 +1,134 @@
+unit DVList.Instruction;
+
+interface
+
+uses
+  DVList.DataObject.Interfaces, DVList.Business.Interfaces, DVList.Datamodule,
+  Objects,
+  System.Generics.Collections;
+
+type
+  TDeviceInstruction = class(TInterfacedObject, IDeviceInstruction)
+  private
+    FDevice: IDevice;
+    DObject: TdmData;
+    DeviceList: TList<Devices>;
+    ListOfLogRequest : TList<LogRequest>;
+  public
+    constructor Create(_device: IDevice);
+    destructor Destroy; override;
+    function GetContents: TList<Devices>;
+    procedure LogRequest(_Type : String);
+    function GetLogRequest  : TList<LogRequest>;
+    procedure Insert;
+    procedure Delete;
+    procedure Update;
+  end;
+
+implementation
+
+uses
+  System.SysUtils;
+
+{ TDeviceInstruction }
+
+constructor TDeviceInstruction.Create(_device: IDevice);
+begin
+  FDevice := _device;
+  DObject := TdmData.Create(nil);
+  DeviceList := TList<Devices>.Create;
+  ListOfLogRequest := TList<LogRequest>.Create;
+end;
+
+procedure TDeviceInstruction.Delete;
+begin
+  with DObject.GetQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM DEVICES WHERE ID = :id');
+    ParamByName('id').AsInteger := FDevice.GetID;
+    ExecSQL;
+  end;
+end;
+
+destructor TDeviceInstruction.Destroy;
+begin
+  DObject.Free;
+  DeviceList.Free;
+  ListOfLogRequest.Free;
+  inherited;
+end;
+
+function TDeviceInstruction.GetContents: TList<Devices>;
+var
+  Device: Devices;
+  I: Integer;
+begin
+  with DObject.fdMainQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT * FROM DEVICES');
+    Open;
+
+    if RecordCount > 0 then
+    begin
+      for I := 0 to RecordCount - 1 do
+      begin
+        Device.DeviceName := FieldByName('NAME').Text;
+        Device.DeviceAddress := FieldByName('ADDRESS').Text;
+        Device.DeviceID := FieldByName('ID').AsInteger;
+        DeviceList.Add(Device);
+        Next;
+      end;
+    end;
+  end;
+  Result := DeviceList;
+end;
+
+function TDeviceInstruction.GetLogRequest: TList<LogRequest>;
+begin
+
+end;
+
+procedure TDeviceInstruction.Insert;
+begin
+  with DObject.GetQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO DEVICES (NAME ,ADDRESS) VALUES (:name, :addr)');
+    ParamByName('name').AsString := FDevice.GetDeviceName;
+    ParamByName('addr').AsString := FDevice.GetDeviceAddress;
+    ExecSQL;
+  end;
+end;
+
+procedure TDeviceInstruction.LogRequest(_Type : String);
+begin
+ with DObject.GetQuery do begin
+   Close;
+   SQL.Clear;
+   SQL.Add('INSERT INTO RequestList (REQUEST,TIME) VALUES (:req, :tm) ');
+   ParamByName('req').AsString := _Type;
+   ParamByName('tm').AsString := FormatDateTime('dd/mm',Now);
+   ExecSQL;
+ end;
+end;
+
+procedure TDeviceInstruction.Update;
+begin
+  with DObject.GetQuery do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE DEVICES SET NAME = :name , ADDRESS = :addr WHERE ID = :id');
+    ParamByName('id').AsInteger := FDevice.GetID;
+    ParamByName('name').AsString := FDevice.GetDeviceName;
+    ParamByName('addr').AsString := FDevice.GetDeviceAddress;
+    ExecSQL;
+  end;
+end;
+
+end.

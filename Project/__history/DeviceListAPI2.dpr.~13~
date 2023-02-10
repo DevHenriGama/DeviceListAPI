@@ -1,0 +1,25 @@
+program DeviceListAPI2;
+
+uses
+  System.StartUpCopy,
+  FMX.Forms,
+  DVList.Mainform in 'UI\DVList.Mainform.pas' {frmMain},
+  DeviceList.Business.Device in 'Business\DeviceList.Business.Device.pas',
+  DeviceList.Business.Interfaces in 'Business\DeviceList.Business.Interfaces.pas',
+  DVList.Instruction in 'DataObject\DVList.Instruction.pas',
+  DVList.DataObject.Interfaces in 'DataObject\DVList.DataObject.Interfaces.pas',
+  DVList.Datamodule in 'DataObject\DVList.Datamodule.pas' {dmData: TDataModule},
+  DeviceList.Business.API in 'Business\DeviceList.Business.API.pas' {dataAPI: TDataModule},
+  DeviceList.Business.Settings in 'Business\DeviceList.Business.Settings.pas',
+  DVList.Frame.RequestRow in 'UI\Frames\DVList.Frame.RequestRow.pas' {frameRequest: TFrame},
+  DVList.Frame.DeviceRow in 'UI\Frames\DVList.Frame.DeviceRow.pas' {frameDevice: TFrame},
+  Objects in 'Business\Objects.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.CreateForm(TfrmMain, frmMain);
+  Application.CreateForm(TdataAPI, dataAPI);
+  Application.Run;
+end.
